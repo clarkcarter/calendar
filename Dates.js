@@ -44,18 +44,19 @@ export default class Dates extends React.Component {
     let currentDate = day.dateString;
     if (alreadySelected) {
       this.ref.doc(alreadySelected.doc.id).delete();
-      alert('Already selected. Deleting from database.');
     } else {
       this.ref.add({
         date: currentDate,
       });
-      alert('Not selected yet. Adding to database.');
     }
   }
 
   render() {
     return (
       <View style={styles.container}>
+        <View>
+          {this.state.dates.length > 0 && this.state.dates.map((date) => <Text>{date.date}</Text>)}
+        </View>
         <CalendarList
           onDayPress={this.addDate}
           /* markedDates={{[this.state.selected[0]]: {selected: true}}} */
