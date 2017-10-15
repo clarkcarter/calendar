@@ -25,7 +25,7 @@ export default class Dates extends React.Component {
   onCollectionUpdate = (querySnapshot) => {
     let dates = [];
     querySnapshot.forEach((doc) => {
-      const {date, id} = doc.data();
+      const {date} = doc.data();
 
       dates.push({
         key: doc.id,
@@ -40,20 +40,22 @@ export default class Dates extends React.Component {
   }
 
   addDate = (day) => {
-    this.ref.add({
-      date: day.dateString,
-    });
+    let alreadySelected = this.state.dates.find((item) => item.date === day.dateString);
+    let currentDate = day.dateString;
+    if (alreadySelected) {
+      this.ref.doc(alreadySelected.doc.id).delete();
+      alert('Already selected. Deleting from database.');
+    } else {
+      this.ref.add({
+        date: currentDate,
+      });
+      alert('Not selected yet. Adding to database.');
+    }
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <View>
-          <FlatList
-            data={this.state.dates}
-            renderItem={({item}) => <Date {...item} />}
-          />
-        </View>
         <CalendarList
           onDayPress={this.addDate}
           /* markedDates={{[this.state.selected[0]]: {selected: true}}} */
