@@ -52,6 +52,12 @@ export default class Dates extends React.Component {
   }
 
   render() {
+    let fakeDates = {
+      '2017-10-16': {selected: true},
+      '2017-10-17': {selected: true},
+      '2017-10-20': {selected: true},
+      '2017-10-23': {selected: true},
+    };
     return (
       <View style={styles.container}>
         <View>
@@ -59,7 +65,7 @@ export default class Dates extends React.Component {
         </View>
         <CalendarList
           onDayPress={this.addDate}
-          /* markedDates={{[this.state.selected[0]]: {selected: true}}} */
+          markedDates={fakeDates}
         />
       </View>
     );
