@@ -26,7 +26,6 @@ export default class Dates extends React.Component {
     let dates = [];
     querySnapshot.forEach((doc) => {
       const {date} = doc.data();
-
       dates.push({
         key: doc.id,
         doc,
@@ -51,21 +50,25 @@ export default class Dates extends React.Component {
     }
   }
 
+  formatDates = (dates) => {
+    let formattedDates = {};
+    dates.forEach(date => {
+      formattedDates[date.date] = {selected: true};
+    })
+
+    return formattedDates;
+  }
+
   render() {
-    let fakeDates = {
-      '2017-10-16': {selected: true},
-      '2017-10-17': {selected: true},
-      '2017-10-20': {selected: true},
-      '2017-10-23': {selected: true},
-    };
+    let realDates = this.formatDates(this.state.dates)
     return (
       <View style={styles.container}>
         <View>
-          {this.state.dates.length > 0 && this.state.dates.map((date) => <Text>{date.date}</Text>)}
+           {this.state.dates.length > 0 && this.state.dates.map((date) => <Text>{date.date}</Text>)}
         </View>
         <CalendarList
           onDayPress={this.addDate}
-          markedDates={fakeDates}
+          markedDates={realDates}
         />
       </View>
     );
