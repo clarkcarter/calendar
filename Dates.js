@@ -60,13 +60,13 @@ export default class Dates extends React.Component {
   }
 
   render() {
-    let realDates = this.formatDates(this.state.dates)
+    let markedDates = this.formatDates(this.state.dates)
     return (
       <View style={styles.container}>
         {/*<View>{this.state.dates.map((date) => <Text>{date.date}</Text>)}</View>*/}
         <CalendarList
           onDayPress={this.addDate}
-          markedDates={realDates}
+          markedDates={markedDates}
         />
       </View>
     );
